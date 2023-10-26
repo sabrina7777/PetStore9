@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PetStore;
+using PetStore.data;
 using PetStore.Logic;
 using PetStore.Models;
 using System.Text.Json;
@@ -63,5 +64,6 @@ static IServiceProvider CreateServiceCollection()
 {
     return new ServiceCollection()
         .AddTransient<IProductLogic, ProductLogic>()
+        .AddTransient<IProductRepository, ProductRepository>()
         .BuildServiceProvider();
 }

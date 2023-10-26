@@ -1,0 +1,2 @@
+﻿C:\Users\sabri\Documents\Projects\PetStore9\PetStore\PetStore.data\PetStore.data.csproj : error  : The element <#text> beneath element <ItemGroup> is unrecognized.  C:\Users\sabri\Documents\Projects\PetStore9\PetStore\PetStore.data\PetStore.data.csproj
+

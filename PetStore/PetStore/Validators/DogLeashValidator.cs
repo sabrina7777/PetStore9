@@ -1,15 +1,12 @@
 ﻿using FluentValidation;
-using PetStore.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PetStore.data;
+
 
 namespace PetStore.Validators
 {
-    internal class DogLeashValidator : AbstractValidator<DogLeash>
+    internal class DogLeashValidator : AbstractValidator<ProductEntity>
     {
+        //should we update name of DogLeashValidator since it is looking at prducts in general now?
         public DogLeashValidator()
         {
             RuleFor(x => x.Name).NotEmpty();

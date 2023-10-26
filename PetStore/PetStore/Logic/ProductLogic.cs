@@ -1,4 +1,5 @@
-﻿using PetStore.Logic;
+﻿using PetStore.data;
+using PetStore.Logic;
 using PetStore.Models;
 using PetStore.Validators;
 using System;
@@ -12,103 +13,27 @@ namespace PetStore
 {
     internal class ProductLogic : IProductLogic
     {
-        private List<Product> _products;
-        private Dictionary<string, DogLeash> _dogLeash;
-        private Dictionary<string, CatFood> _catFood;
+        private readonly IProductRepository _repository;
 
-        public ProductLogic()
+        public ProductLogic(IProductRepository productRepository)
         {
-            _products = new List<Product>
-            {
-                new DogLeash
-                {
-                    Description = "A rope dog leash made from strong rope.",
-                    LengthInches = 60,
-                    Material = "Rope",
-                    Name = "Rope Dog Leash",
-                    Price = 21.00m,
-                    Quantity = 0
-                },
-                new DryCatFood
-                {
-                    Quantity = 6,
-                    Price = 25.59m,
-                    Name = "Plain 'Ol Cat Food",
-                    Description = "Nothing fancy to find here.  Just the basic stuff your cat needs to live a healthy life",
-                    WeightPounds = 10,
-                    KittenFood = false
-                },
-                new CatFood
-                {
-                    Quantity = 48,
-                    Price = 12.99m,
-                    Name = "Fancy Cat Food",
-                    Description = "Food that isn't only delicious, but made from the finest of all cat food stuff",
-                    KittenFood = false
-                }
-            };
-            _dogLeash = new Dictionary<string, DogLeash>();
-            _catFood = new Dictionary<string, CatFood>();
+            _repository = productRepository;
+
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(ProductEntity product)
         {
-            if (product is DogLeash)
-            {
-                var validator = new DogLeashValidator();
-                if (validator.Validate(product as DogLeash).IsValid)
-                {
-                    _dogLeash.Add(product.Name, product as DogLeash);
-                }
-                else
-                {
-                    throw new ValidationException("The dog leash product isn't valid");
-                }
-                
-            }
-            if (product is CatFood)
-            {
-                _catFood.Add(product.Name, product as CatFood);
-            }
-            _products.Add(product);
+            _repository.Create(product);
         }
 
-        public List<Product> GetAllProducts()
+        public List<ProductEntity> GetAllProducts()
         {
-            return _products;
+            return _repository.GetAll().ToList();
         }
 
-        public T GetProductByName<T>(string name) where T : Product
+        public ProductEntity GetProductById(int id)
         {
-            try
-            {
-                if (typeof(T) == typeof(DogLeash))
-                {
-                    return _dogLeash[name] as T;
-                }
-                else if (typeof(T) == typeof(CatFood))
-                {
-                    return _catFood[name] as T;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        public List<string> GetOnlyInStockProducts()
-        {
-            return _products.InStock().Select(x=>x.Name).ToList();
-        }
-
-        public decimal GetTotalPriceOfInventory()
-        {
-            return _products.InStock().Select(x => x.Price).Sum();
+            return _repository.Get(id);
         }
     }
 }

@@ -1,0 +1,8 @@
+﻿Build started...
+1>------ Build started: Project: PetStore, Configuration: Debug Any CPU ------
+1>Skipping analyzers to speed up the build. You can execute 'Build' or 'Rebuild' command to run analyzers.
+1>C:\Users\sabri\Documents\Projects\PetStore9\PetStore\PetStore\Logic\ProductLogic.cs(16,26,16,44): error CS0246: The type or namespace name 'IProductRepository' could not be found (are you missing a using directive or an assembly reference?)
+1>C:\Users\sabri\Documents\Projects\PetStore9\PetStore\PetStore\Logic\ProductLogic.cs(18,29,18,47): error CS0246: The type or namespace name 'IProductRepository' could not be found (are you missing a using directive or an assembly reference?)
+1>Done building project "PetStore.csproj" -- FAILED.
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+========== Build started at 12:30 PM and took 01.635 seconds ==========

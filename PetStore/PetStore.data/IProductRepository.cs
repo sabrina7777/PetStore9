@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PetStore.data
 {
-    internal interface IProductRepository
+    public interface IProductRepository
     {
         public void Create(ProductEntity product);
         public ProductEntity? Get(int id);

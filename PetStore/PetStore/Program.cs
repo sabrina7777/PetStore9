@@ -17,44 +17,29 @@ while (userInput.ToLower() != "exit")
 {
     if (userInput == "1")
     {
-        Console.WriteLine("Please add a Dog Leash in JSON format");
+        Console.WriteLine("Please add a product in JSON format");
         var userInputAsJson = Console.ReadLine();
-        var dogLeash = JsonSerializer.Deserialize<DogLeash>(userInputAsJson);
+        //need to fix dogleash var?
+        var dogLeash = JsonSerializer.Deserialize<ProductEntity>(userInputAsJson);
         productLogic.AddProduct(dogLeash);
     }
     if (userInput == "2")
     {
-        Console.Write("What is the name of the dog leash you would like to view? ");
-        var dogLeashName = Console.ReadLine();
-        var dogLeash = productLogic.GetProductByName<DogLeash>(dogLeashName);
-        Console.WriteLine(JsonSerializer.Serialize(dogLeash));
+        Console.Write("What is the id of the product you would like to view? ");
+        var success = int.TryParse(Console.ReadLine(), out int id);
+        if (!success) continue;
+        var dogLeash = productLogic.GetProductById(id);
+        Console.WriteLine(JsonSerializer.Serialize(id));
         Console.WriteLine();
     }
-    if (userInput == "3")
-    {
-        Console.WriteLine("The following products are in stock: ");
-        var inStock = productLogic.GetOnlyInStockProducts();
-        foreach (var item in inStock)
-        {
-            Console.WriteLine(item);
-        }
-        Console.WriteLine();
-    }
-    if (userInput == "4")
-    {
-        Console.WriteLine($"The total price of inventory on hand is {productLogic.GetTotalPriceOfInventory()}");
-        Console.WriteLine();
-    }
-
+   
     userInput = DisplayMenuAndGetInput();
 }
 
 static string DisplayMenuAndGetInput()
 {
     Console.WriteLine("Press 1 to add a product");
-    Console.WriteLine("Press 2 to view a Dog Leash Product");
-    Console.WriteLine("Press 3 to view in stock products");
-    Console.WriteLine("Press 4 to view the total price of current inventory");
+    Console.WriteLine("Press 2 to view a product");
     Console.WriteLine("Type 'exit' to quit");
 
     return Console.ReadLine();
